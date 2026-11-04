@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Awal KosinAja - Kos Putri Anak Lanang</title>
+    <!-- Bootstrap 5 & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background: #F8FAFC; color: #0F172A; }
+        .hero { background: radial-gradient(100% 100% at 50% 0%, #312E81 0%, #0F172A 100%); color: white; padding: 60px 0 50px; }
+        .card-custom { border-radius: 20px; border: 1px solid #E2E8F0; box-shadow: 0 4px 20px rgba(0,0,0,0.04); background: #FFFFFF; }
+        .room-card { border-radius: 20px; overflow: hidden; border: 1px solid #E2E8F0; transition: transform 0.2s ease, box-shadow 0.2s ease; background: #FFFFFF; }
+        .room-card:hover { transform: translateY(-5px); box-shadow: 0 16px 30px rgba(0,0,0,0.08); }
+        .room-img { height: 210px; object-fit: cover; width: 100%; }
+        .btn-primary-custom { background: linear-gradient(135deg, #4F46E5 0%, #6366F1 100%); border: none; border-radius: 12px; color: #FFF; font-weight: 700; padding: 10px 18px; }
+        .btn-primary-custom:hover { color: #FFF; transform: translateY(-1px); }
+        .nav-role-pill { font-size: 11px; font-weight: 700; border-radius: 20px; padding: 6px 14px; cursor: pointer; transition: all 0.2s; }
+    </style>
+</head>
+<body>
+
+<!-- Demo Top Notification Banner -->
+<div class="bg-primary text-white py-2 px-3 small text-center fw-bold">
+    <i class="bi bi-stars me-1"></i> INI ADALAH WEBSITE DEMO AWAL KOSINAJA • SEMUA FITUR 12 USE CASE BISA DICOBA LANGSUNG!
+</div>
+
+<!-- Navbar Publik -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top py-3">
+    <div class="container px-4">
+        <a class="navbar-brand fw-bold text-white d-flex align-items-center gap-2" href="#katalog">
+            <span class="rounded-3 bg-primary text-white p-1 px-2"><i class="bi bi-houses-fill"></i></span>
+            <span>KosinAja</span>
+        </a>
+        <div class="ms-auto d-flex align-items-center gap-2 flex-wrap">
+            <button class="btn btn-outline-light btn-sm rounded-pill px-3" onclick="openBookingTracker()">
+                <i class="bi bi-search me-1"></i>Cek Status Booking (UC-07)
+            </button>
+            <div class="dropdown">
+                <button class="btn btn-warning btn-sm rounded-pill px-3 fw-bold dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-person-fill-lock me-1"></i>Simulasi Login (3 Role)
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 small">
+                    <li><h6 class="dropdown-header">Pilih Peran Uji Coba:</h6></li>
+                    <!-- Developer: Super Admin, akses semua panel -->
+                    <li>
+                        <a class="dropdown-item fw-bold" style="color:#DC2626;" href="javascript:switchView('developer')">
+                            <i class="bi bi-code-slash me-2"></i>1. Role Developer (Super Admin)
+                            <div class="small text-muted ms-4" style="font-size:10px;">Akses semua panel: Dev + Mitra + Penyewa</div>
+                        </a>
+                    </li>
+                    <!-- Mitra: Kelola kamar & pemesanan, tidak bisa dev panel -->
+                    <li>
+                        <a class="dropdown-item fw-bold" style="color:#D97706;" href="javascript:switchView('mitra')">
+                            <i class="bi bi-person-badge-fill me-2"></i>2. Role Mitra — Ibu Yeni
+                            <div class="small text-muted ms-4" style="font-size:10px;">Panel kelola kamar & pemesanan saja</div>
+                        </a>
+                    </li>
+                    <!-- Penyewa: Dasbor & booking saja -->
+                    <li>
+                        <a class="dropdown-item fw-bold text-success" href="javascript:switchView('penyewa')">
+                            <i class="bi bi-person-check-fill me-2"></i>3. Role Penyewa / Penghuni
+                            <div class="small text-muted ms-4" style="font-size:10px;">Dasbor pribadi & riwayat booking</div>
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item text-muted" href="javascript:switchView('publik')">
+                            <i class="bi bi-globe me-2"></i>Tampilan Publik (Tanpa Login)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO SECTION: Katalog Publik -->
+<div id="viewPublik">
+    <section class="hero text-center text-md-start">
+        <div class="container px-4">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-primary-subtle text-primary border border-primary px-3 py-2 rounded-pill fw-bold mb-3 d-inline-flex align-items-center gap-2">
+                        <i class="bi bi-patch-check-fill text-success"></i> Mitra Resmi: Kos Putri Anak Lanang • Pasir Pengaraian
+                    </span>
+                    <h1 class="display-6 fw-bold mb-2">KosinAja - Kos Putri Anak Lanang</h1>
+                    <p class="lead opacity-90 fs-6 mb-3">
+                        Kos putri aman, nyaman, dan strategis dekat kampus Universitas Pasir Pengaraian (UPP). Dilengkapi pagar keliling, CCTV 24 jam, area parkir motor luas, dan WiFi kencang.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 text-white-50 small mb-2">
+                        <span><i class="bi bi-geo-alt-fill text-warning me-1"></i>Jl. Tuanku Tambusai No. 45, Pasir Pengaraian, Rokan Hulu, Riau</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center text-lg-end mt-4 mt-lg-0">
+                    <div class="bg-white text-dark p-4 rounded-4 shadow-sm d-inline-block text-start w-100" style="max-width: 340px;">
+                        <div class="small fw-bold text-primary mb-1"><i class="bi bi-shield-check me-1"></i>Legalitas Permendag 19/2026:</div>
+                        <div class="small"><strong>NIB:</strong> NIB-1928374650001 (OSS)</div>
+                        <div class="small text-muted mb-3">Layanan Jasa Dalam Negeri</div>
+                        
+                        <a href="https://wa.me/6281275998811?text=Halo%20Ibu%20Yeni,%20saya%20tertarik%20dengan%20Kos%20Putri%20Anak%20Lanang." target="_blank" class="btn btn-success w-100 py-2 rounded-3 fw-bold d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-whatsapp"></i> Chat WhatsApp Ibu Yeni (UC-05)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter & Daftar Kamar (UC-01 & UC-02) -->
+    <div class="container px-4 py-5" id="katalog">
+
+        <!-- BANNER ALUR PEMBAYARAN - panduan langkah demo -->
+        <div class="card mb-4 border-0 shadow-sm" style="background:linear-gradient(135deg,#4F46E5,#7C3AED);border-radius:20px;">
+            <div class="card-body p-4 text-white">
+                <div class="fw-bold fs-6 mb-3"><i class="bi bi-credit-card-2-front-fill me-2"></i>Cara Uji Coba Alur Pembayaran:</div>
+                <div class="row g-3 text-center">
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 rounded-3" style="background:rgba(255,255,255,0.15);">
+                            <div class="fs-3 mb-1">1️⃣</div>
+                            <div class="small fw-bold">Klik "Lihat Detail &amp; Pesan"</div>
+                            <div class="small opacity-75">di kartu kamar bawah</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 rounded-3" style="background:rgba(255,255,255,0.15);">
+                            <div class="fs-3 mb-1">2️⃣</div>
+                            <div class="small fw-bold">Isi Form Pemesanan</div>
+                            <div class="small opacity-75">nama, WA, tanggal masuk</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 rounded-3" style="background:rgba(255,255,255,0.15);">
+                            <div class="fs-3 mb-1">3️⃣</div>
+                            <div class="small fw-bold">Klik "Lanjut ke Pembayaran"</div>
+                            <div class="small opacity-75">pilih QRIS atau Transfer</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 rounded-3" style="background:rgba(255,255,255,0.15);">
+                            <div class="fs-3 mb-1">4️⃣</div>
+                            <div class="small fw-bold">Klik "Konfirmasi Bayar"</div>
+                            <div class="small opacity-75">kuitansi digital muncul</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <button class="btn btn-warning fw-bold px-4 py-2 rounded-pill" onclick="quickPay('Kamar 01','850.000')">
+                        <i class="bi bi-lightning-charge-fill me-1"></i> Demo Langsung: Simulasi Pembayaran Kamar 01
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-custom p-4 mb-5">
+            <h5 class="fw-bold text-dark mb-3"><i class="bi bi-funnel-fill text-primary me-2"></i>Filter &amp; Pencarian Kamar (UC-02)</h5>
+            <div class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label small fw-bold text-secondary">Cari Kamar</label>
+                    <input type="text" id="filterKeyword" class="form-control rounded-3" placeholder="Ketik: Kamar 01, Kamar 02..." onkeyup="applyFilter()">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-bold text-secondary">Tipe Fasilitas</label>
+                    <select id="filterTipe" class="form-select rounded-3" onchange="applyFilter()">
+                        <option value="semua">Semua Tipe</option>
+                        <option value="berperabot">Berperabot (Furnished)</option>
+                        <option value="kosongan">Kosongan (Non-Furnished)</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-bold text-secondary">Status Ketersediaan</label>
+                    <select id="filterStatus" class="form-select rounded-3" onchange="applyFilter()">
+                        <option value="semua">Semua Status</option>
+                        <option value="kosong">Kosong (Siap Huni)</option>
+                        <option value="dipesan">Dipesan</option>
+                        <option value="terisi">Terisi</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-light border w-100 rounded-3 fw-bold text-secondary" onclick="resetFilter()">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="fw-bold mb-0">Daftar Pilihan Unit Kamar</h3>
+                <p class="text-muted small mb-0">Data ini tersinkronisasi langsung dengan modul <em>UC-09 Kelola Kamar</em>.</p>
+            </div>
+            <span class="badge bg-primary px-3 py-2 rounded-pill" id="roomCount">3 Unit Tersedia</span>
+        </div>
+
+        <!-- Grid Kamar -->
+        <div class="row g-4" id="roomGrid">
+            <!-- Kamar 01 -->
+            <div class="col-md-6 col-lg-4 room-item" data-nama="Kamar 01" data-tipe="berperabot" data-status="kosong">
+                <div class="card room-card h-100 d-flex flex-column">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&q=80" alt="Kamar 01" class="room-img">
+                        <span class="position-absolute top-0 start-0 m-3 badge bg-primary rounded-pill px-3 py-2">Berperabot</span>
+                        <span class="position-absolute top-0 end-0 m-3 badge bg-dark bg-opacity-75 rounded-pill px-3 py-2">3 Foto</span>
+                    </div>
+                    <div class="card-body p-4 d-flex flex-column flex-grow-1">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="fw-bold mb-0 text-dark">Kamar 01</h5>
+                            <span class="badge bg-success-subtle text-success border border-success rounded-pill px-2 py-1">Kosong</span>
+                        </div>
+                        <div class="text-muted small mb-3"><i class="bi bi-aspect-ratio me-1"></i>Ukuran: 3 x 4 Meter</div>
+                        <div class="d-flex flex-wrap gap-1 mb-3">
+                            <span class="badge bg-light text-secondary border small">❄️ AC</span>
+                            <span class="badge bg-light text-secondary border small">🛏️ Kasur Busa</span>
+                            <span class="badge bg-light text-secondary border small">🚿 KM Dalam</span>
+                            <span class="badge bg-light text-secondary border small">📶 WiFi</span>
+                        </div>
+                        <div class="mt-auto pt-3 border-top">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <span class="text-muted small">Tarif Sewa:</span>
+                                    <div class="fw-bold text-success fs-5">Rp 850.000 <span class="text-muted small fw-normal">/ bln</span></div>
+                                </div>
+                                <span class="badge bg-light text-secondary border">Bebas Ongkir</span>
+                            </div>
+                            <button class="btn btn-primary-custom w-100 rounded-3 text-center" onclick="openRoomDetail('Kamar 01', 'berperabot', '850.000', '3 x 4 m', 'kosong')">
+                                Lihat Detail &amp; Pesan (UC-03/06) &rarr;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kamar 02 -->
+            <div class="col-md-6 col-lg-4 room-item" data-nama="Kamar 02" data-tipe="kosongan" data-status="kosong">
+                <div class="card room-card h-100 d-flex flex-column">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80" alt="Kamar 02" class="room-img">
+                        <span class="position-absolute top-0 start-0 m-3 badge bg-info text-dark rounded-pill px-3 py-2">Kosongan</span>
+                        <span class="position-absolute top-0 end-0 m-3 badge bg-dark bg-opacity-75 rounded-pill px-3 py-2">3 Foto</span>
+                    </div>
+                    <div class="card-body p-4 d-flex flex-column flex-grow-1">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="fw-bold mb-0 text-dark">Kamar 02</h5>
+                            <span class="badge bg-success-subtle text-success border border-success rounded-pill px-2 py-1">Kosong</span>
+                        </div>
+                        <div class="text-muted small mb-3"><i class="bi bi-aspect-ratio me-1"></i>Ukuran: 3 x 3.5 Meter</div>
+                        <div class="d-flex flex-wrap gap-1 mb-3">
+                            <span class="badge bg-light text-secondary border small">💨 Kipas Angin</span>
+                            <span class="badge bg-light text-secondary border small">🚿 KM Luar</span>
+                            <span class="badge bg-light text-secondary border small">📶 WiFi</span>
+                            <span class="badge bg-light text-secondary border small">🛵 Parkir</span>
+                        </div>
+                        <div class="mt-auto pt-3 border-top">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <span class="text-muted small">Tarif Sewa:</span>
+                                    <div class="fw-bold text-success fs-5">Rp 500.000 <span class="text-muted small fw-normal">/ bln</span></div>
+                                </div>
+                                <span class="badge bg-light text-secondary border">Bebas Ongkir</span>
+                            </div>
+                            <button class="btn btn-primary-custom w-100 rounded-3 text-center" onclick="openRoomDetail('Kamar 02', 'kosongan', '500.000', '3 x 3.5 m', 'kosong')">
+                                Lihat Detail &amp; Pesan (UC-03/06) &rarr;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kamar 03 -->
+            <div class="col-md-6 col-lg-4 room-item" data-nama="Kamar 03" data-tipe="berperabot" data-status="dipesan">
+                <div class="card room-card h-100 d-flex flex-column">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80" alt="Kamar 03" class="room-img">
+                        <span class="position-absolute top-0 start-0 m-3 badge bg-primary rounded-pill px-3 py-2">Berperabot</span>
+                        <span class="position-absolute top-0 end-0 m-3 badge bg-dark bg-opacity-75 rounded-pill px-3 py-2">3 Foto</span>
+                    </div>
+                    <div class="card-body p-4 d-flex flex-column flex-grow-1">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="fw-bold mb-0 text-dark">Kamar 03</h5>
+                            <span class="badge bg-warning-subtle text-warning-emphasis border border-warning rounded-pill px-2 py-1">Dipesan</span>
+                        </div>
+                        <div class="text-muted small mb-3"><i class="bi bi-aspect-ratio me-1"></i>Ukuran: 3 x 4 Meter</div>
+                        <div class="d-flex flex-wrap gap-1 mb-3">
+                            <span class="badge bg-light text-secondary border small">❄️ AC</span>
+                            <span class="badge bg-light text-secondary border small">🛏️ Kasur</span>
+                            <span class="badge bg-light text-secondary border small">🚪 Lemari</span>
+                            <span class="badge bg-light text-secondary border small">🚿 KM Dalam</span>
+                        </div>
+                        <div class="mt-auto pt-3 border-top">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <span class="text-muted small">Tarif Sewa:</span>
+                                    <div class="fw-bold text-success fs-5">Rp 850.000 <span class="text-muted small fw-normal">/ bln</span></div>
+                                </div>
+                                <span class="badge bg-light text-secondary border">Bebas Ongkir</span>
+                            </div>
+                            <button class="btn btn-outline-secondary w-100 rounded-3 text-center" onclick="openRoomDetail('Kamar 03', 'berperabot', '850.000', '3 x 4 m', 'dipesan')">
+                                Lihat Detail (Status Dipesan) &rarr;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SIMULASI PANEL MITRA IBU YENI -->
+<div id="viewMitra" style="display:none;" class="container py-4">
+    <div class="card-custom p-4 mb-4">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div>
+                <span class="badge bg-indigo text-white px-3 py-1 rounded-pill mb-1" style="background:#4338CA;">Role: Mitra Pemilik Kos</span>
+                <h4 class="fw-bold mb-0">Panel Pengelola Ibu Yeni (UC-09 &amp; UC-10)</h4>
+                <p class="text-muted small mb-0">Kelola kamar kos, ganti status ketersediaan instan, dan terima pengajuan sewa.</p>
+            </div>
+            <button class="btn btn-secondary btn-sm rounded-pill" onclick="switchView('publik')">Kembali ke Katalog</button>
+        </div>
+    </div>
+    <div class="card-custom p-4">
+        <h6 class="fw-bold mb-3">Daftar Kamar &amp; Ganti Status Cepat (UC-10):</h6>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light small">
+                    <tr><th>NO. KAMAR</th><th>TIPE</th><th>TARIF</th><th>STATUS SAAT INI</th><th>AKSI GANTI STATUS (UC-10)</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Kamar 01</strong></td>
+                        <td>Berperabot</td>
+                        <td class="text-success fw-bold">Rp 850.000</td>
+                        <td><span class="badge bg-success" id="badgeKmr1">Kosong</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-success" onclick="updateStatusSimulasi('badgeKmr1', 'Kosong')">Set Kosong</button>
+                            <button class="btn btn-sm btn-outline-warning" onclick="updateStatusSimulasi('badgeKmr1', 'Dipesan')">Set Dipesan</button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="updateStatusSimulasi('badgeKmr1', 'Terisi')">Set Terisi</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kamar 02</strong></td>
+                        <td>Kosongan</td>
+                        <td class="text-success fw-bold">Rp 500.000</td>
+                        <td><span class="badge bg-success" id="badgeKmr2">Kosong</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-success" onclick="updateStatusSimulasi('badgeKmr2', 'Kosong')">Set Kosong</button>
+                            <button class="btn btn-sm btn-outline-warning" onclick="updateStatusSimulasi('badgeKmr2', 'Dipesan')">Set Dipesan</button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="updateStatusSimulasi('badgeKmr2', 'Terisi')">Set Terisi</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- SIMULASI PORTAL PENGHUNI -->
+<div id="viewPenyewa" style="display:none;" class="container py-4">
+    <div class="card-custom p-4 mb-4 border-success">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div>
+                <span class="badge bg-success px-3 py-1 rounded-pill mb-1">Role: Penghuni / Calon</span>
+                <h4 class="fw-bold mb-0">Portal Personal Anak Kos (Nadia Safitri)</h4>
+                <p class="text-muted small mb-0">Lihat status kamar yang dihuni, deposit jaminan, dan aturan kos.</p>
+            </div>
+            <button class="btn btn-secondary btn-sm rounded-pill" onclick="switchView('publik')">Kembali ke Katalog</button>
+        </div>
+    </div>
+    <div class="card-custom p-4 mb-4">
+        <h6 class="fw-bold text-success mb-2">Unit Kamar yang Sedang Dihuni:</h6>
+        <div class="row align-items-center">
+            <div class="col-md-3"><img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&q=80" class="img-fluid rounded-3" alt="Kamar"></div>
+            <div class="col-md-5">
+                <h5 class="fw-bold mb-1">Kamar 01 (Berperabot)</h5>
+                <div class="text-muted small">Ukuran 3x4 m • AC, Kasur, Kamar Mandi Dalam</div>
+                <div class="fw-bold text-success fs-5 mt-2">Rp 850.000 / bln</div>
+            </div>
+            <div class="col-md-4 p-3 bg-light rounded-3">
+                <div class="small fw-bold">Deposit Jaminan:</div>
+                <div class="small text-muted mb-2">Rp 200.000 (Dikembalikan 100%)</div>
+                <div class="small fw-bold text-primary">Jatuh Tempo:</div>
+                <div class="small text-muted">Tanggal 10 tiap bulan</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SIMULASI DEVELOPER PANEL (Akses Super - Bisa Semua Panel) -->
+<div id="viewDev" style="display:none;" class="container-fluid px-4 py-4" style="background:#0F172A;min-height:100vh;">
+    <!-- Dev Mode Banner -->
+    <div class="alert d-flex align-items-center gap-3 mb-4 p-3" style="background:#0F172A;border:1px solid #DC2626;border-radius:14px;color:#FCA5A5;">
+        <i class="bi bi-shield-fill-check fs-4" style="color:#F87171;"></i>
+        <div>
+            <strong style="color:#F87171;">Developer Panel — Super Admin</strong>
+            <div class="small" style="color:#94A3B8;">
+                Role <code style="color:#A5B4FC;">developer</code> memiliki akses penuh: dapat membuka Panel Mitra, Panel Penyewa, dan Katalog Publik.
+                Gunakan tombol di bawah untuk berpindah panel simulasi.
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistik Developer -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="card text-center p-3" style="background:#1E293B;border:1px solid #334155;border-radius:16px;">
+                <div style="font-size:2rem;font-weight:800;color:#818CF8;">4</div>
+                <div class="small" style="color:#94A3B8;">Total Kamar</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card text-center p-3" style="background:#1E293B;border:1px solid #334155;border-radius:16px;">
+                <div style="font-size:2rem;font-weight:800;color:#34D399;">2</div>
+                <div class="small" style="color:#94A3B8;">Kamar Kosong</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card text-center p-3" style="background:#1E293B;border:1px solid #334155;border-radius:16px;">
+                <div style="font-size:2rem;font-weight:800;color:#FCD34D;">1</div>
+                <div class="small" style="color:#94A3B8;">Menunggu Approval</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card text-center p-3" style="background:#1E293B;border:1px solid #334155;border-radius:16px;">
+                <div style="font-size:2rem;font-weight:800;color:#A5B4FC;">3</div>
+                <div class="small" style="color:#94A3B8;">Total Pengguna</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigasi ke Semua Panel (RBAC) -->
+    <div class="row g-3 mb-4">
+        <div class="col-12">
+            <div class="card p-4" style="background:#1E293B;border:1px solid #334155;border-radius:16px;">
+                <div class="fw-bold mb-3" style="color:#E2E8F0;"><i class="bi bi-grid-fill me-2" style="color:#818CF8;"></i>Akses Semua Panel (Hak Eksklusif Developer)</div>
+                <div class="row g-2">
+                    <!-- Eksklusif Developer -->
+                    <div class="col-12 mb-1"><small style="color:#64748B;letter-spacing:.5px;">▸ EKSKLUSIF DEVELOPER</small></div>
+                    <div class="col-md-4">
+                        <button class="btn w-100 text-start p-3" style="background:#0F172A;border:1px solid #DC2626;border-radius:12px;color:#F87171;" onclick="switchView('developer')">
+                            <i class="bi bi-code-slash me-2"></i><strong>Developer Panel</strong>
+                            <div class="small" style="color:#64748B;">Statistik, manajemen user, 12 UC</div>
+                        </button>
+                    </div>
+                    <!-- Panel Mitra (dev bisa akses) -->
+                    <div class="col-12 mb-1 mt-2"><small style="color:#64748B;letter-spacing:.5px;">▸ PANEL MITRA (DEVELOPER JUGA BISA AKSES)</small></div>
+                    <div class="col-md-4">
+                        <button class="btn w-100 text-start p-3" style="background:#0F172A;border:1px solid #D97706;border-radius:12px;color:#FCD34D;" onclick="switchView('mitra')">
+                            <i class="bi bi-door-closed-fill me-2"></i><strong>Kelola Kamar (UC-09)</strong>
+                            <div class="small" style="color:#64748B;">Tambah, ubah, hapus kamar</div>
+                        </button>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn w-100 text-start p-3" style="background:#0F172A;border:1px solid #D97706;border-radius:12px;color:#FCD34D;" onclick="switchView('mitra')">
+                            <i class="bi bi-inbox-fill me-2"></i><strong>Tanggapi Pemesanan (UC-11)</strong>
+                            <div class="small" style="color:#64748B;">Setujui / tolak pengajuan sewa</div>
+                        </button>
+                    </div>
+                    <!-- Panel Penyewa (dev bisa akses) -->
+                    <div class="col-12 mb-1 mt-2"><small style="color:#64748B;letter-spacing:.5px;">▸ PANEL PENYEWA (DEVELOPER JUGA BISA AKSES)</small></div>
+                    <div class="col-md-4">
+                        <button class="btn w-100 text-start p-3" style="background:#0F172A;border:1px solid #059669;border-radius:12px;color:#34D399;" onclick="switchView('penyewa')">
+                            <i class="bi bi-person-check-fill me-2"></i><strong>Dasbor Penghuni</strong>
+                            <div class="small" style="color:#64748B;">Lihat kamar aktif & riwayat booking</div>
+                        </button>
+                    </div>
+                    <!-- Publik -->
+                    <div class="col-12 mb-1 mt-2"><small style="color:#64748B;letter-spacing:.5px;">▸ HALAMAN PUBLIK</small></div>
+                    <div class="col-md-4">
+                        <button class="btn w-100 text-start p-3" style="background:#0F172A;border:1px solid #334155;border-radius:12px;color:#94A3B8;" onclick="switchView('publik')">
+                            <i class="bi bi-shop me-2"></i><strong>Katalog Publik (UC-01, UC-02)</strong>
+                            <div class="small" style="color:#64748B;">Daftar & filter kamar, publik</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status 12 Use Case -->
+    <div class="card p-4" style="background:#1E293B;border:1px solid #334155;border-radius:16px;">
+        <div class="fw-bold mb-3" style="color:#E2E8F0;"><i class="bi bi-check2-all me-2 text-success"></i>Status 12 Use Case — Semua Terpasang</div>
+        <div class="row g-2" style="font-size:13px;">
+            <div class="col-md-4 p-2 rounded" style="background:#0F172A;border:1px solid #1E293B;color:#CBD5E1;"><i class="bi bi-check-circle-fill text-success me-1"></i><strong>UC-01 Lihat Daftar:</strong> Salsabila</div>
+            <div class="col-md-4 p-2 rounded" style="background:#0F172A;border:1px solid #1E293B;color:#CBD5E1;"><i class="bi bi-check-circle-fill text-success me-1"></i><strong>UC-02 Filter Kamar:</strong> Cantika</div>
+            <div class="col-md-4 p-2 rounded" style="background:#0F172A;border:1px solid #1E293B;color:#CBD5E1;"><i class="bi bi-check-circle-fill text-success me-1"></i><strong>UC-03 Detail Kamar:</strong> Salsabila</div>
+            <div class="col-md-4 p-2 rounded" style="background:#0F172A;border:1px solid #1E293B;color:#CBD5E1;"><i class="bi bi-check-circle-fill text-success me-1"></i><strong>UC-04 Video Tur:</strong> Widya</div>
+            <div class="col-md-4 p-2 rounded" style="background:#0F172A;border:1px solid #1E293B;color:#CBD5E1;"><i class="bi bi-check-circle-fill text-success me-1"></i><strong>UC-05 Chat WA:</strong> Widya</div>
+            <div class="col-md-4 p-2 rounded" style="background:#0F172A;border:1px solid #1E293B;color:#CBD5E1;"><i class="bi bi-check-circle-fill text-success me-1"></i><strong>UC-06 Booking Sewa:</strong> Ketua (gw)</div>
+            <div class="col-md-4 p-2 rounded" style="background:#0F172A;border:1px solid #1E293B;color:#CBD5E1;"><i class="bi bi-check-circle-fill text-success me-1"></i><strong>UC-07 Cek Status:</strong> Ketua (gw)</div>
+            <div class="col-md-4 p-2 rounded" style="background:#0F172A;border:1px solid #1E293B;color:#CBD5E1;"><i class="bi bi-check-circle-fill text-success me-1"></i><strong>UC-08 Login 3 Role:</strong> Alya</div>
+            <div class="col-md-4 p-2 rounded" style="background:#0F172A;border:1px solid #1E293B;color:#CBD5E1;"><i class="bi bi-check-circle-fill text-success me-1"></i><strong>UC-09 Kelola Kamar:</strong> Alya</div>
+            <div class="col-md-4 p-2 rounded" style="background:#0F172A;border:1px solid #1E293B;color:#CBD5E1;"><i class="bi bi-check-circle-fill text-success me-1"></i><strong>UC-10 Ubah Status:</strong> Cantika</div>
+            <div class="col-md-4 p-2 rounded" style="background:#0F172A;border:1px solid #1E293B;color:#CBD5E1;"><i class="bi bi-check-circle-fill text-success me-1"></i><strong>UC-11 Tanggapi Sewa:</strong> Roja</div>
+            <div class="col-md-4 p-2 rounded" style="background:#0F172A;border:1px solid #1E293B;color:#CBD5E1;"><i class="bi bi-check-circle-fill text-success me-1"></i><strong>UC-12 Kelola NIB:</strong> Roja</div>
+        </div>
+
+        <!-- Tabel Hak Akses RBAC -->
+        <div class="mt-4">
+            <div class="fw-bold mb-2" style="color:#E2E8F0;font-size:14px;"><i class="bi bi-lock-fill me-2 text-warning"></i>Matriks Hak Akses Role (RBAC)</div>
+            <div class="table-responsive">
+                <table class="table table-sm mb-0" style="font-size:12px;color:#CBD5E1;border-color:#334155;">
+                    <thead style="background:#0F172A;color:#94A3B8;">
+                        <tr>
+                            <th style="border-color:#334155;">Halaman / Fitur</th>
+                            <th class="text-center" style="border-color:#334155;color:#F87171;">Developer</th>
+                            <th class="text-center" style="border-color:#334155;color:#FCD34D;">Mitra</th>
+                            <th class="text-center" style="border-color:#334155;color:#34D399;">Penyewa</th>
+                            <th class="text-center" style="border-color:#334155;color:#94A3B8;">Publik</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-color:#1E293B;">
+                            <td style="border-color:#1E293B;">Developer Panel (statistik, manajemen user)</td>
+                            <td class="text-center text-success" style="border-color:#1E293B;">✅</td>
+                            <td class="text-center text-danger" style="border-color:#1E293B;">❌</td>
+                            <td class="text-center text-danger" style="border-color:#1E293B;">❌</td>
+                            <td class="text-center text-danger" style="border-color:#1E293B;">❌</td>
+                        </tr>
+                        <tr style="border-color:#1E293B;">
+                            <td style="border-color:#1E293B;">Panel Mitra — Kelola Kamar (UC-09)</td>
+                            <td class="text-center text-success" style="border-color:#1E293B;">✅</td>
+                            <td class="text-center text-success" style="border-color:#1E293B;">✅</td>
+                            <td class="text-center text-danger" style="border-color:#1E293B;">❌</td>
+                            <td class="text-center text-danger" style="border-color:#1E293B;">❌</td>
+                        </tr>
+                        <tr style="border-color:#1E293B;">
+                            <td style="border-color:#1E293B;">Panel Mitra — Tanggapi Pemesanan (UC-11)</td>
+                            <td class="text-center text-success" style="border-color:#1E293B;">✅</td>
+                            <td class="text-center text-success" style="border-color:#1E293B;">✅</td>
+                            <td class="text-center text-danger" style="border-color:#1E293B;">❌</td>
+                            <td class="text-center text-danger" style="border-color:#1E293B;">❌</td>
+                        </tr>
+                        <tr style="border-color:#1E293B;">
+                            <td style="border-color:#1E293B;">Panel Penyewa — Dasbor Penghuni</td>
+                            <td class="text-center text-success" style="border-color:#1E293B;">✅</td>
+                            <td class="text-center text-danger" style="border-color:#1E293B;">❌</td>
+                            <td class="text-center text-success" style="border-color:#1E293B;">✅</td>
+                            <td class="text-center text-danger" style="border-color:#1E293B;">❌</td>
+                        </tr>
+                        <tr style="border-color:#1E293B;">
+                            <td style="border-color:#1E293B;">Katalog Publik (UC-01, UC-02, UC-03, UC-04, UC-05)</td>
+                            <td class="text-center text-success" style="border-color:#1E293B;">✅</td>
+                            <td class="text-center text-success" style="border-color:#1E293B;">✅</td>
+                            <td class="text-center text-success" style="border-color:#1E293B;">✅</td>
+                            <td class="text-center text-success" style="border-color:#1E293B;">✅</td>
+                        </tr>
+                        <tr style="border-color:#1E293B;">
+                            <td style="border-color:#1E293B;">Booking & Cek Status (UC-06, UC-07)</td>
+                            <td class="text-center text-success" style="border-color:#1E293B;">✅</td>
+                            <td class="text-center text-success" style="border-color:#1E293B;">✅</td>
+                            <td class="text-center text-success" style="border-color:#1E293B;">✅</td>
+                            <td class="text-center text-success" style="border-color:#1E293B;">✅</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DETAIL KAMAR (UC-03, UC-04, UC-06) -->
+<div class="modal fade" id="roomDetailModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold" id="modalRoomTitle">Detail Kamar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <img id="modalRoomImg" src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&q=80" class="img-fluid rounded-4 mb-3 border" alt="Kamar">
+                        <!-- Tombol Putar Video Tur (UC-04 - Widya) -->
+                        <div class="p-3 bg-light rounded-3 d-flex align-items-center justify-content-between border">
+                            <div class="small fw-bold"><i class="bi bi-play-circle-fill text-danger me-1"></i>Video Tur Kamar (UC-04)</div>
+                            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn btn-outline-danger btn-sm rounded-pill px-3">Putar 360°</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="badge bg-primary rounded-pill px-3 py-1" id="modalRoomTipe">Berperabot</span>
+                            <span class="badge bg-success-subtle text-success border border-success rounded-pill px-3 py-1" id="modalRoomStatus">Kosong</span>
+                        </div>
+                        <h4 class="fw-bold text-success mb-2" id="modalRoomPrice">Rp 850.000 / bln</h4>
+                        <div class="small text-muted mb-3" id="modalRoomSize">Ukuran: 3 x 4 Meter</div>
+
+                        <!-- Transparansi Deposit (Slide 7 Bab 6) -->
+                        <div class="p-3 bg-light rounded-3 mb-3 border small">
+                            <strong><i class="bi bi-shield-check text-success me-1"></i>Deposit Kunci:</strong> Rp 200.000<br>
+                            <span class="text-success fw-bold">✓ Dikembalikan 100% saat masa sewa selesai (No Hidden Fees).</span>
+                        </div>
+
+                        <!-- Form Booking Sewa (UC-06 - Ketua) -->
+                        <div class="p-3 rounded-3 border bg-white shadow-sm">
+                            <h6 class="fw-bold text-primary mb-2"><i class="bi bi-calendar-check me-1"></i>Ajukan Pemesanan (UC-06):</h6>
+                            <div class="mb-2">
+                                <input type="text" id="bkgNama" class="form-control form-control-sm" placeholder="Nama Calon Penyewa" value="Nadia Safitri">
+                            </div>
+                            <div class="mb-2">
+                                <input type="tel" id="bkgWa" class="form-control form-control-sm" placeholder="Nomor WhatsApp" value="081399887766">
+                            </div>
+                            <div class="mb-2">
+                                <input type="date" id="bkgTgl" class="form-control form-control-sm" value="2026-11-10">
+                            </div>
+                            <button class="btn btn-primary-custom w-100 py-2 small fw-bold" onclick="proceedToPayment()">
+                                <i class="bi bi-credit-card-2-front-fill me-1"></i> Lanjut ke Pembayaran (Invoice) &rarr;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PEMBAYARAN / CHECKOUT (BAB 5 SLIDE 7: PEMBAYARAN SANDBOX) -->
+<div class="modal fade" id="paymentModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 p-4 shadow-lg">
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+                <h5 class="fw-bold mb-0 text-dark"><i class="bi bi-receipt text-primary me-2"></i>Invoice Pembayaran Sewa</h5>
+                <span class="badge bg-warning text-dark px-2 py-1 rounded-pill">Mode Sandbox</span>
+            </div>
+
+            <!-- Rincian Tagihan Transparan (Slide 7 Bab 6) -->
+            <div class="p-3 bg-light rounded-3 mb-3 border">
+                <div class="d-flex justify-content-between small mb-1">
+                    <span class="text-secondary" id="invRoomName">Sewa Kamar 01 (1 Bulan)</span>
+                    <span class="fw-bold" id="invRoomPrice">Rp 850.000</span>
+                </div>
+                <div class="d-flex justify-content-between small mb-1">
+                    <span class="text-secondary">Uang Deposit Kunci (Jaminan)</span>
+                    <span class="fw-bold">Rp 200.000</span>
+                </div>
+                <div class="d-flex justify-content-between small text-muted mb-2">
+                    <span>Biaya Ongkir Kurir Fisik</span>
+                    <span class="text-success fw-bold">Rp 0 (Bebas Ongkir)</span>
+                </div>
+                <div class="border-top pt-2 d-flex justify-content-between align-items-center">
+                    <span class="fw-bold text-dark">TOTAL TAGIHAN:</span>
+                    <span class="fw-bold text-success fs-5" id="invTotal">Rp 1.050.000</span>
+                </div>
+            </div>
+
+            <!-- Pilihan Metode Pembayaran -->
+            <h6 class="fw-bold small text-secondary mb-2">Pilih Metode Pembayaran:</h6>
+            <div class="d-flex flex-column gap-2 mb-3">
+                <div class="p-3 border rounded-3 d-flex align-items-center justify-content-between bg-white" style="cursor:pointer;" onclick="selectPaymentMethod('qris')">
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="radio" name="payMethod" id="payQRIS" checked>
+                        <label for="payQRIS" class="fw-bold small mb-0">QRIS Instan (GoPay, ShopeePay, Dana, M-Banking)</label>
+                    </div>
+                    <span class="badge bg-success">Otomatis</span>
+                </div>
+                <div class="p-3 border rounded-3 d-flex align-items-center justify-content-between bg-white" style="cursor:pointer;" onclick="selectPaymentMethod('transfer')">
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="radio" name="payMethod" id="payTransfer">
+                        <label for="payTransfer" class="fw-bold small mb-0">Transfer Bank BRI (Ibu Yeni)</label>
+                    </div>
+                    <span class="badge bg-light text-secondary border">Manual</span>
+                </div>
+            </div>
+
+            <!-- Tampilan QRIS -->
+            <div id="qrisSection" class="text-center p-3 bg-light rounded-3 mb-3 border">
+                <p class="small text-muted mb-2">Scan QRIS di bawah ini melalui aplikasi e-wallet / mobile banking Anda:</p>
+                <!-- Dummy QR Code SVG -->
+                <svg width="150" height="150" viewBox="0 0 150 150" style="background:#FFF; padding:10px; border-radius:8px; border:1px solid #CBD5E1;">
+                    <rect x="15" y="15" width="40" height="40" fill="#000"/>
+                    <rect x="25" y="25" width="20" height="20" fill="#FFF"/>
+                    <rect x="95" y="15" width="40" height="40" fill="#000"/>
+                    <rect x="105" y="25" width="20" height="20" fill="#FFF"/>
+                    <rect x="15" y="95" width="40" height="40" fill="#000"/>
+                    <rect x="25" y="105" width="20" height="20" fill="#FFF"/>
+                    <rect x="70" y="25" width="10" height="10" fill="#000"/>
+                    <rect x="70" y="70" width="15" height="15" fill="#000"/>
+                    <rect x="95" y="95" width="20" height="20" fill="#000"/>
+                    <rect x="120" y="115" width="15" height="15" fill="#000"/>
+                </svg>
+                <div class="text-success fw-bold small mt-2">NMID: ID192837465 • KOSINAJA ANAK LANANG</div>
+            </div>
+
+            <!-- Tampilan Transfer Rekening -->
+            <div id="transferSection" class="p-3 bg-light rounded-3 mb-3 border" style="display:none;">
+                <div class="small text-muted">Nomor Rekening Resmi Pemilik Kos:</div>
+                <div class="fw-bold fs-5 text-dark">5412-01-009876-53-1</div>
+                <div class="small fw-semibold text-primary">Bank BRI • a.n IBU YENI</div>
+                <div class="small text-muted mt-1">Harap sertakan kode booking pada berita transfer.</div>
+            </div>
+
+            <!-- Tombol Simulasi Pembayaran Sandbox -->
+            <button class="btn btn-success w-100 py-3 fw-bold rounded-3 shadow-sm mb-2" onclick="simulatePaymentSuccess()">
+                <i class="bi bi-check2-circle me-1"></i> Konfirmasi Pembayaran Berhasil (Simulasi Sandbox)
+            </button>
+            <button class="btn btn-light border w-100 py-2 small text-secondary rounded-3" data-bs-dismiss="modal">
+                Batal / Bayar Nanti
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL BUKTI PEMBAYARAN LUNAS (KUITANSI DIGITAL) -->
+<div class="modal fade" id="receiptModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 p-4 text-center">
+            <div class="rounded-circle bg-success-subtle text-success d-inline-flex p-3 mb-3 mx-auto" style="width:70px; height:70px; align-items:center; justify-content:center;">
+                <i class="bi bi-check-lg fs-1"></i>
+            </div>
+            <h4 class="fw-bold text-dark mb-1">Pembayaran Berhasil!</h4>
+            <p class="text-muted small mb-3">Tanda terima digital resmi Kos Putri Anak Lanang.</p>
+
+            <div class="p-3 bg-light rounded-3 text-start small border mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                    <span class="text-muted">No. Kuitansi:</span>
+                    <strong id="receiptCode">KW-20261104-001</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-1">
+                    <span class="text-muted">Nama Penyewa:</span>
+                    <strong id="receiptUser">Nadia Safitri</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-1">
+                    <span class="text-muted">Unit Kamar:</span>
+                    <strong id="receiptRoom">Kamar 01</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-1">
+                    <span class="text-muted">Status Pembayaran:</span>
+                    <span class="badge bg-success">LUNAS (Verified)</span>
+                </div>
+                <div class="border-top pt-2 mt-2 d-flex justify-content-between">
+                    <strong>Total Dibayar:</strong>
+                    <strong class="text-success fs-6" id="receiptAmount">Rp 1.050.000</strong>
+                </div>
+            </div>
+
+            <div class="alert alert-info py-2 small text-start">
+                <i class="bi bi-info-circle-fill me-1"></i> Status kamar di katalog publik otomatis diubah menjadi <strong>"DIPESAN" (UC-10)</strong> dan notifikasi telah dikirim ke panel Ibu Yeni (UC-11).
+            </div>
+
+            <button class="btn btn-primary-custom w-100 py-2 fw-bold rounded-3" data-bs-dismiss="modal" onclick="switchView('mitra')">
+                Buka Panel Ibu Yeni untuk Cek Status &rarr;
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tracking Booking (UC-07) -->
+<div class="modal fade" id="trackerModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 p-4">
+            <h5 class="fw-bold mb-2"><i class="bi bi-search text-primary me-2"></i>Status Booking Kamar (UC-07)</h5>
+            <p class="small text-muted mb-3">Masukkan kode booking atau nomor WhatsApp Anda.</p>
+            <input type="text" class="form-control mb-3" id="trackInput" value="BKG-20261104-789">
+            <button class="btn btn-primary-custom w-100 py-2 fw-bold mb-3" onclick="checkStatusSimulasi()">Cek Status</button>
+            <div id="trackResult" class="p-3 bg-light rounded-3 small border" style="display:none;">
+                <strong>Hasil Pelacakan:</strong><br>
+                • Unit: <strong>Kamar 01 (Berperabot)</strong><br>
+                • Pemesan: Nadia Safitri<br>
+                • Status: <span class="badge bg-warning text-dark">Menunggu Konfirmasi Ibu Yeni</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-dark text-white py-4 mt-5">
+    <div class="container px-4 text-center small text-secondary">
+        <div><strong>KosinAja</strong> • Mitra Resmi: Kos Putri Anak Lanang (Ibu Yeni) • NIB-1928374650001 (Permendag 19/2026)</div>
+        <div>Pasir Pengaraian, Rokan Hulu, Riau</div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function switchView(role) {
+    // Sembunyikan semua panel
+    document.getElementById('viewPublik').style.display = 'none';
+    document.getElementById('viewMitra').style.display = 'none';
+    document.getElementById('viewPenyewa').style.display = 'none';
+    document.getElementById('viewDev').style.display = 'none';
+
+    // Tampilkan panel sesuai role
+    if (role === 'publik') {
+        document.getElementById('viewPublik').style.display = 'block';
+    } else if (role === 'mitra') {
+        document.getElementById('viewMitra').style.display = 'block';
+    } else if (role === 'penyewa') {
+        document.getElementById('viewPenyewa').style.display = 'block';
+    } else if (role === 'developer') {
+        document.getElementById('viewDev').style.display = 'block';
+        // Developer panel: background gelap
+        document.body.style.background = '#0F172A';
+    }
+
+    // Reset background saat keluar dari developer panel
+    if (role !== 'developer') {
+        document.body.style.background = '#F8FAFC';
+    }
+
+    // Update label tombol switcher
+    const labels = {
+        'developer': '🔴 Developer (Super Admin)',
+        'mitra':     '🟡 Mitra — Ibu Yeni',
+        'penyewa':   '🟢 Penyewa / Penghuni',
+        'publik':    '🌐 Tampilan Publik'
+    };
+    const btn = document.querySelector('[data-bs-toggle="dropdown"].btn-warning');
+    if (btn) {
+        btn.innerHTML = `<i class="bi bi-person-fill-lock me-1"></i>Login: ${labels[role] || 'Simulasi'}`;
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function applyFilter() {
+    const keyword = document.getElementById('filterKeyword').value.toLowerCase();
+    const tipe = document.getElementById('filterTipe').value;
+    const status = document.getElementById('filterStatus').value;
+    const items = document.querySelectorAll('.room-item');
+    let visibleCount = 0;
+
+    items.forEach(el => {
+        const itemNama = el.getAttribute('data-nama').toLowerCase();
+        const itemTipe = el.getAttribute('data-tipe');
+        const itemStatus = el.getAttribute('data-status');
+
+        const matchKeyword = itemNama.includes(keyword);
+        const matchTipe = (tipe === 'semua' || itemTipe === tipe);
+        const matchStatus = (status === 'semua' || itemStatus === status);
+
+        if (matchKeyword && matchTipe && matchStatus) {
+            el.style.display = 'block';
+            visibleCount++;
+        } else {
+            el.style.display = 'none';
+        }
+    });
+    document.getElementById('roomCount').innerText = visibleCount + ' Unit Ditemukan';
+}
+
+function resetFilter() {
+    document.getElementById('filterKeyword').value = '';
+    document.getElementById('filterTipe').value = 'semua';
+    document.getElementById('filterStatus').value = 'semua';
+    applyFilter();
+}
+
+let currentActiveRoom = 'Kamar 01';
+let currentActivePrice = '850.000';
+
+function openRoomDetail(nama, tipe, harga, ukuran, status) {
+    currentActiveRoom = nama;
+    currentActivePrice = harga;
+    document.getElementById('modalRoomTitle').innerText = nama;
+    document.getElementById('modalRoomTipe').innerText = tipe.toUpperCase();
+    document.getElementById('modalRoomPrice').innerText = 'Rp ' + harga + ' / bln';
+    document.getElementById('modalRoomSize').innerText = 'Ukuran: ' + ukuran;
+    document.getElementById('modalRoomStatus').innerText = status.toUpperCase();
+    new bootstrap.Modal(document.getElementById('roomDetailModal')).show();
+}
+
+function proceedToPayment() {
+    // Tutup modal detail kamar
+    const detailModal = bootstrap.Modal.getInstance(document.getElementById('roomDetailModal'));
+    if (detailModal) detailModal.hide();
+
+// Shortcut: langsung buka modal pembayaran tanpa buka detail dulu
+function quickPay(nama, harga) {
+    currentActiveRoom = nama;
+    currentActivePrice = harga;
+    const rawPrice = parseInt(harga.replace(/\./g, '')) || 850000;
+    const total = rawPrice + 200000;
+    document.getElementById('invRoomName').innerText = 'Sewa ' + nama + ' (1 Bulan)';
+    document.getElementById('invRoomPrice').innerText = 'Rp ' + rawPrice.toLocaleString('id-ID');
+    document.getElementById('invTotal').innerText = 'Rp ' + total.toLocaleString('id-ID');
+    new bootstrap.Modal(document.getElementById('paymentModal')).show();
+}
+    // Hitung total: harga kamar + deposit Rp 200.000
+    const rawPrice = parseInt(currentActivePrice.replace('.', '')) || 850000;
+    const total = rawPrice + 200000;
+
+    document.getElementById('invRoomName').innerText = 'Sewa ' + currentActiveRoom + ' (1 Bulan)';
+    document.getElementById('invRoomPrice').innerText = 'Rp ' + rawPrice.toLocaleString('id-ID');
+    document.getElementById('invTotal').innerText = 'Rp ' + total.toLocaleString('id-ID');
+
+    // Buka modal pembayaran
+    setTimeout(() => {
+        new bootstrap.Modal(document.getElementById('paymentModal')).show();
+    }, 400);
+}
+
+function selectPaymentMethod(method) {
+    if (method === 'qris') {
+        document.getElementById('payQRIS').checked = true;
+        document.getElementById('qrisSection').style.display = 'block';
+        document.getElementById('transferSection').style.display = 'none';
+    } else {
+        document.getElementById('payTransfer').checked = true;
+        document.getElementById('qrisSection').style.display = 'none';
+        document.getElementById('transferSection').style.display = 'block';
+    }
+}
+
+function simulatePaymentSuccess() {
+    const payModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+    if (payModal) payModal.hide();
+
+    const userName = document.getElementById('bkgNama').value || 'Nadia Safitri';
+    const kwCode = 'KW-' + new Date().getFullYear() + Math.floor(1000 + Math.random() * 9000);
+
+    document.getElementById('receiptCode').innerText = kwCode;
+    document.getElementById('receiptUser').innerText = userName;
+    document.getElementById('receiptRoom').innerText = currentActiveRoom;
+    document.getElementById('receiptAmount').innerText = document.getElementById('invTotal').innerText;
+
+    setTimeout(() => {
+        new bootstrap.Modal(document.getElementById('receiptModal')).show();
+    }, 400);
+}
+
+function openBookingTracker() {
+    new bootstrap.Modal(document.getElementById('trackerModal')).show();
+}
+
+function checkStatusSimulasi() {
+    document.getElementById('trackResult').style.display = 'block';
+}
+
+function updateStatusSimulasi(id, status) {
+    const badge = document.getElementById(id);
+    badge.innerText = status;
+    badge.className = 'badge ' + (status === 'Kosong' ? 'bg-success' : (status === 'Dipesan' ? 'bg-warning text-dark' : 'bg-secondary'));
+    alert('Status kamar berhasil diubah menjadi: ' + status + ' (UC-10)');
+}
+</script>
+</body>
+</html>

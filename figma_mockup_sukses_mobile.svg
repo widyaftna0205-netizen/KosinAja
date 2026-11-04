@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 870" width="412" height="870" style="background: transparent; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <linearGradient id="phoneBorderS" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="50%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="btnGradS" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="phoneShadowS" x="-10%" y="-5%" width="120%" height="115%">
+      <feDropShadow dx="0" dy="18" stdDeviation="25" flood-color="#0F172A" flood-opacity="0.25"/>
+    </filter>
+    <filter id="cardElevatedS" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="#0F172A" flood-opacity="0.12"/>
+    </filter>
+    <clipPath id="screenClipS">
+      <rect x="18" y="18" width="376" height="834" rx="44"/>
+    </clipPath>
+  </defs>
+
+  <g filter="url(#phoneShadowS)">
+    <rect x="12" y="12" width="388" height="846" rx="50" fill="url(#phoneBorderS)"/>
+    <rect x="14" y="14" width="384" height="842" rx="48" fill="#0F172A"/>
+    <rect x="18" y="18" width="376" height="834" rx="44" fill="#0F172A" fill-opacity="0.6"/>
+  </g>
+
+  <g clip-path="url(#screenClipS)">
+    <!-- Dimmed Background of Dashboard -->
+    <rect x="18" y="18" width="376" height="834" fill="#0F172A" fill-opacity="0.55"/>
+
+    <!-- Dynamic Island -->
+    <rect x="148" y="27" width="116" height="30" rx="15" fill="#000000"/>
+    <circle cx="242" cy="42" r="5" fill="#1E293B"/>
+
+    <!-- Status Bar -->
+    <text x="50" y="46" fill="#FFFFFF" font-size="13" font-weight="600">09:41</text>
+    <g transform="translate(325, 36)" fill="#FFFFFF">
+      <path d="M1 9 C2 4, 7 1, 12 1 C17 1, 22 4, 23 9" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <rect x="25" y="2" width="18" height="9" rx="3" fill="#FFFFFF"/>
+    </g>
+
+    <!-- Modal Success Card Popup (Centered) -->
+    <g transform="translate(42, 210)" filter="url(#cardElevatedS)">
+      <rect x="0" y="0" width="328" height="420" rx="28" fill="#FFFFFF"/>
+
+      <!-- Big Success Checkmark Icon -->
+      <circle cx="164" cy="75" r="38" fill="#ECFDF5"/>
+      <circle cx="164" cy="75" r="28" fill="#10B981"/>
+      <path d="M152 75 L160 83 L176 67" stroke="#FFFFFF" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <text x="164" y="145" fill="#0F172A" font-size="20" font-weight="800" text-anchor="middle">Kamar Berhasil Terbit!</text>
+      <text x="164" y="170" fill="#64748B" font-size="12" text-anchor="middle">Data Kamar 04 telah tersimpan di sistem.</text>
+
+      <!-- Room Summary Badge Box -->
+      <g transform="translate(24, 195)">
+        <rect x="0" y="0" width="280" height="75" rx="14" fill="#F8FAFC" stroke="#E2E8F0"/>
+        <text x="16" y="28" fill="#0F172A" font-size="13" font-weight="800">Kamar 04 (Berperabot)</text>
+        <text x="16" y="46" fill="#64748B" font-size="11">AC • Kasur • KM Dalam • WiFi</text>
+        <text x="16" y="64" fill="#10B981" font-size="12" font-weight="800">Rp 850.000 / bln</text>
+        <rect x="195" y="46" width="70" height="20" rx="10" fill="#ECFDF5"/>
+        <text x="230" y="60" fill="#065F46" font-size="9" font-weight="700" text-anchor="middle">Siap Huni</text>
+      </g>
+
+      <!-- NF-04 Badge -->
+      <text x="164" y="300" fill="#16A34A" font-size="11" font-weight="600" text-anchor="middle">
+        ⚡ Sinkronisasi ke katalog publik &lt; 10 detik (NF-04)
+      </text>
+
+      <!-- Primary Action Button: Kembali ke Dasbor -->
+      <g transform="translate(24, 320)">
+        <rect x="0" y="0" width="280" height="46" rx="14" fill="#4F46E5"/>
+        <text x="140" y="28" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">Kembali ke Dasbor Kamar →</text>
+      </g>
+
+      <!-- Secondary Action Link: Lihat Katalog -->
+      <text x="164" y="394" fill="#64748B" font-size="12" font-weight="600" text-anchor="middle">Buka Katalog Publik Kos</text>
+    </g>
+
+    <!-- Home Indicator -->
+    <rect x="146" y="836" width="120" height="4.5" rx="2.5" fill="#FFFFFF"/>
+  </g>
+</svg>

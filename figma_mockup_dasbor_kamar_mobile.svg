@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 870" width="412" height="870" style="background: transparent; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <linearGradient id="phoneBorderD" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="50%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="btnGradD" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#6366F1"/>
+    </linearGradient>
+    <filter id="phoneShadowD" x="-10%" y="-5%" width="120%" height="115%">
+      <feDropShadow dx="0" dy="18" stdDeviation="25" flood-color="#0F172A" flood-opacity="0.25"/>
+    </filter>
+    <filter id="cardElevatedD" x="-5%" y="-3%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0F172A" flood-opacity="0.04"/>
+    </filter>
+    <clipPath id="screenClipD">
+      <rect x="18" y="18" width="376" height="834" rx="44"/>
+    </clipPath>
+  </defs>
+
+  <!-- Outer Phone Body -->
+  <g filter="url(#phoneShadowD)">
+    <rect x="12" y="12" width="388" height="846" rx="50" fill="url(#phoneBorderD)"/>
+    <rect x="14" y="14" width="384" height="842" rx="48" fill="#0F172A"/>
+    <rect x="18" y="18" width="376" height="834" rx="44" fill="#F8FAFC"/>
+  </g>
+
+  <g clip-path="url(#screenClipD)">
+    <!-- Sticky Top Header -->
+    <rect x="18" y="18" width="376" height="115" fill="#FFFFFF"/>
+    
+    <!-- Dynamic Island -->
+    <rect x="148" y="27" width="116" height="30" rx="15" fill="#000000"/>
+    <circle cx="242" cy="42" r="5" fill="#1E293B"/>
+
+    <!-- Status Bar -->
+    <text x="50" y="46" fill="#0F172A" font-size="13" font-weight="600">09:41</text>
+    <g transform="translate(325, 36)" fill="#0F172A">
+      <path d="M1 9 C2 4, 7 1, 12 1 C17 1, 22 4, 23 9" stroke="#0F172A" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <rect x="25" y="2" width="18" height="9" rx="3" fill="#0F172A"/>
+    </g>
+
+    <!-- Top App Bar -->
+    <g transform="translate(34, 72)">
+      <text x="0" y="18" fill="#0F172A" font-size="18" font-weight="800">Unit Kamar Kos</text>
+      <text x="0" y="34" fill="#64748B" font-size="11">Kos Putri Anak Lanang (Ibu Yeni)</text>
+
+      <!-- Add Button Target (Klik untuk Prototype) -->
+      <g transform="translate(230, 2)">
+        <rect x="0" y="0" width="110" height="36" rx="18" fill="url(#btnGradD)"/>
+        <text x="55" y="22" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">+ Tambah Unit</text>
+      </g>
+    </g>
+    <line x1="18" y1="133" x2="394" y2="133" stroke="#E2E8F0" stroke-width="1"/>
+
+    <!-- Stats Pill Row -->
+    <g transform="translate(34, 148)">
+      <rect x="0" y="0" width="105" height="48" rx="12" fill="#FFFFFF" filter="url(#cardElevatedD)"/>
+      <text x="12" y="20" fill="#64748B" font-size="10" font-weight="600">Total Unit</text>
+      <text x="12" y="38" fill="#0F172A" font-size="16" font-weight="800">8 Kamar</text>
+
+      <rect x="115" y="0" width="112" height="48" rx="12" fill="#ECFDF5" stroke="#A7F3D0"/>
+      <text x="127" y="20" fill="#047857" font-size="10" font-weight="600">Siap Huni</text>
+      <text x="127" y="38" fill="#065F46" font-size="16" font-weight="800">3 Kosong</text>
+
+      <rect x="237" y="0" width="105" height="48" rx="12" fill="#FFFBEB" stroke="#FDE68A"/>
+      <text x="249" y="20" fill="#92400E" font-size="10" font-weight="600">Dipesan</text>
+      <text x="249" y="38" fill="#B45309" font-size="16" font-weight="800">1 Booking</text>
+    </g>
+
+    <!-- LIST OF ROOM CARDS (Mobile Scroll Area) -->
+
+    <!-- Card 1: Kamar 01 -->
+    <g transform="translate(34, 212)" filter="url(#cardElevatedD)">
+      <rect x="0" y="0" width="344" height="110" rx="16" fill="#FFFFFF"/>
+      <rect x="12" y="12" width="90" height="86" rx="12" fill="#6366F1"/>
+      <text x="57" y="58" fill="#FFFFFF" font-size="28" text-anchor="middle">🛏️</text>
+
+      <text x="114" y="32" fill="#0F172A" font-size="14" font-weight="800">Kamar 01</text>
+      <rect x="186" y="18" width="68" height="20" rx="10" fill="#EEF2FF"/>
+      <text x="220" y="32" fill="#4F46E5" font-size="9" font-weight="700" text-anchor="middle">Berperabot</text>
+
+      <text x="114" y="54" fill="#64748B" font-size="11">AC • Kasur • KM Dalam • WiFi</text>
+
+      <text x="114" y="84" fill="#10B981" font-size="14" font-weight="800">Rp 850.000<tspan font-size="10" fill="#64748B" font-weight="500">/bln</tspan></text>
+
+      <!-- Status Badge -->
+      <rect x="264" y="70" width="68" height="22" rx="11" fill="#ECFDF5" stroke="#A7F3D0"/>
+      <text x="298" y="85" fill="#065F46" font-size="9" font-weight="700" text-anchor="middle">Kosong</text>
+    </g>
+
+    <!-- Card 2: Kamar 02 -->
+    <g transform="translate(34, 334)" filter="url(#cardElevatedD)">
+      <rect x="0" y="0" width="344" height="110" rx="16" fill="#FFFFFF"/>
+      <rect x="12" y="12" width="90" height="86" rx="12" fill="#0284C7"/>
+      <text x="57" y="58" fill="#FFFFFF" font-size="28" text-anchor="middle">🚪</text>
+
+      <text x="114" y="32" fill="#0F172A" font-size="14" font-weight="800">Kamar 02</text>
+      <rect x="186" y="18" width="68" height="20" rx="10" fill="#F1F5F9"/>
+      <text x="220" y="32" fill="#64748B" font-size="9" font-weight="700" text-anchor="middle">Kosongan</text>
+
+      <text x="114" y="54" fill="#64748B" font-size="11">Kipas Angin • KM Luar • WiFi</text>
+
+      <text x="114" y="84" fill="#10B981" font-size="14" font-weight="800">Rp 500.000<tspan font-size="10" fill="#64748B" font-weight="500">/bln</tspan></text>
+
+      <!-- Status Badge: Dipesan -->
+      <rect x="264" y="70" width="68" height="22" rx="11" fill="#FFFBEB" stroke="#FDE68A"/>
+      <text x="298" y="85" fill="#92400E" font-size="9" font-weight="700" text-anchor="middle">Dipesan</text>
+    </g>
+
+    <!-- Card 3: Kamar 03 -->
+    <g transform="translate(34, 456)" filter="url(#cardElevatedD)">
+      <rect x="0" y="0" width="344" height="110" rx="16" fill="#FFFFFF"/>
+      <rect x="12" y="12" width="90" height="86" rx="12" fill="#475569"/>
+      <text x="57" y="58" fill="#FFFFFF" font-size="28" text-anchor="middle">🛋️</text>
+
+      <text x="114" y="32" fill="#0F172A" font-size="14" font-weight="800">Kamar 03</text>
+      <rect x="186" y="18" width="68" height="20" rx="10" fill="#EEF2FF"/>
+      <text x="220" y="32" fill="#4F46E5" font-size="9" font-weight="700" text-anchor="middle">Berperabot</text>
+
+      <text x="114" y="54" fill="#64748B" font-size="11">AC • Lemari • KM Dalam • TV</text>
+
+      <text x="114" y="84" fill="#10B981" font-size="14" font-weight="800">Rp 900.000<tspan font-size="10" fill="#64748B" font-weight="500">/bln</tspan></text>
+
+      <!-- Status Badge: Terisi -->
+      <rect x="264" y="70" width="68" height="22" rx="11" fill="#F1F5F9" stroke="#E2E8F0"/>
+      <text x="298" y="85" fill="#64748B" font-size="9" font-weight="700" text-anchor="middle">Terisi</text>
+    </g>
+
+    <!-- Bottom Tab Bar (Mobile Navigation) -->
+    <g transform="translate(18, 770)">
+      <rect x="0" y="0" width="376" height="82" fill="#FFFFFF" stroke="#E2E8F0"/>
+      
+      <!-- Nav 1 (Active) -->
+      <g transform="translate(60, 12)">
+        <text x="0" y="18" fill="#4F46E5" font-size="18" text-anchor="middle">🛏️</text>
+        <text x="0" y="34" fill="#4F46E5" font-size="10" font-weight="700" text-anchor="middle">Unit Kamar</text>
+      </g>
+
+      <!-- Nav 2 -->
+      <g transform="translate(188, 12)">
+        <text x="0" y="18" fill="#94A3B8" font-size="18" text-anchor="middle">🏢</text>
+        <text x="0" y="34" fill="#94A3B8" font-size="10" font-weight="500" text-anchor="middle">Profil Kos</text>
+      </g>
+
+      <!-- Nav 3 -->
+      <g transform="translate(316, 12)">
+        <text x="0" y="18" fill="#94A3B8" font-size="18" text-anchor="middle">🌐</text>
+        <text x="0" y="34" fill="#94A3B8" font-size="10" font-weight="500" text-anchor="middle">Katalog</text>
+      </g>
+
+      <!-- Home Indicator -->
+      <rect x="128" y="66" width="120" height="4.5" rx="2.5" fill="#0F172A"/>
+    </g>
+  </g>
+</svg>
